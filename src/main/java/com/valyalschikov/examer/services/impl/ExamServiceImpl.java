@@ -54,6 +54,17 @@ public class ExamServiceImpl implements ExamService {
         return null;
     }
 
+    @Override
+    public ExamDto getExamByToken(String token) {
+        Exam exam = examRepository.findByToken(token);
+
+        if(exam == null){
+            throw new NotFoundException();
+        }
+
+        return ExamMapper.mapToDto(exam);
+    }
+
     private String createToken() {
         SecureRandom random = new SecureRandom();
         byte[] token = new byte[24];

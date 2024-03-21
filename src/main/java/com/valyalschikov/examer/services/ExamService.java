@@ -7,4 +7,5 @@ public interface ExamService {
     ExamDto createExam(String name);
     ExamDto delete(String token);
     String createLink(ExamDto examDto);
+    ExamDto getExamByToken(String token);
 }
