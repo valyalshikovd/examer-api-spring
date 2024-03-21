@@ -6,9 +6,16 @@ import java.util.List;
 
 public interface TaskService {
 
+
     TaskDto createTask(TaskDto taskDto);
-    List<TaskDto> getByExamId(String token);
+
+    List<TaskDto> getByExamToken(String token);
+
     TaskDto update(TaskDto taskDto, Long id);
+
     TaskDto delete(Long id);
+
     void deleteAllByExamId(String token);
+
+
 }
