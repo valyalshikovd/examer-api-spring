@@ -26,10 +26,10 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public TaskDto createTask(TaskDto taskDto) {
 
+
         if(taskDto == null){
             throw new IllegalArgumentException();
         }
-
         Task createdTask = Task
                 .builder()
                 .num(taskDto.getNum())
@@ -50,6 +50,7 @@ public class TaskServiceImpl implements TaskService {
 
         ExamDto examDto = examService.getExamByToken(token);
         List<Task> tasks = taskRepository.findAllByExamId(examDto.getId());
+        System.out.println(tasks.get(0).getImages());
         return  tasks.stream().map( TaskMapper::mapToDto).toList();
 
     }
@@ -71,6 +72,7 @@ public class TaskServiceImpl implements TaskService {
         task.setAnswer(taskDto.getAnswer());
         task.setDate(taskDto.getDate());
         taskRepository.save(task);
+
 
         return TaskMapper.mapToDto(task);
     }
@@ -110,6 +112,7 @@ public class TaskServiceImpl implements TaskService {
             image.setPreviewImage(true);
             task.addImageToProduct(image);
         }
+        System.out.println(task.getImages());
         taskRepository.save(task);
     }
 

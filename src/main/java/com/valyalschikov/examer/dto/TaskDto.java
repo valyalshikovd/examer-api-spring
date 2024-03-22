@@ -12,6 +12,7 @@ import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -26,6 +27,6 @@ public class TaskDto {
     private String description;
     private String answer;
     private LocalDate date;
-    private List<Image> imageList;
+    private List<Long> imageList = new ArrayList<>();
 }
 

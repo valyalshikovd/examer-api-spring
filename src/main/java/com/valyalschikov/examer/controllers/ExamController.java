@@ -30,7 +30,7 @@ public class ExamController {
     }
 
     @DeleteMapping("/{token}")
-    public ResponseEntity<ExamDto> deleteExam(@PathVariable String token){
+    public ResponseEntity<ExamDto> deleteExam(@PathVariable(name = "token") String token){
         try{
             ExamDto examDto = examService.delete(token);
             taskService.deleteAllByExamId(token);

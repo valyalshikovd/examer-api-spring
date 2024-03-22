@@ -36,12 +36,13 @@ public class Task {
     private LocalDate date;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,
-            mappedBy = "product")
+            mappedBy = "task")
     private List<Image> images = new ArrayList<>();
 
     public void addImageToProduct(Image image) {
-        image.setProduct(this);
+        image.setTask(this);
         images.add(image);
+
     }
 
 }

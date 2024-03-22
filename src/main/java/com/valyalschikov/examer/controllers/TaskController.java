@@ -23,6 +23,7 @@ public class TaskController {
         try {
             taskService.createTask(taskDto);
         }catch (Exception e){
+            System.out.println(e);
             return ResponseEntity.status(400).build();
         }
 
@@ -49,6 +50,7 @@ public class TaskController {
             List<TaskDto> res = taskService.getByExamToken(token);
             return ResponseEntity.ok(res);
         }catch (Exception e){
+            System.out.println(e.getMessage());
             return ResponseEntity.status(400).build();
         }
     }
@@ -68,7 +70,6 @@ public class TaskController {
             @RequestParam("file") MultipartFile file,
             @PathVariable(name = "idProduct") Long idProguct
     ) throws IOException {
-        System.out.println(file);
         taskService.addImageToProduct(idProguct, file);
         return ResponseEntity.status(200).build();
     }
