@@ -6,17 +6,19 @@ import com.valyalschikov.examer.services.TaskService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping
+@RequestMapping("api/v1/task")
 public class TaskController {
 
     TaskService taskService;
 
-    @PostMapping
+    @PostMapping()
     public ResponseEntity<TaskDto> create(@RequestBody TaskDto taskDto){
         try {
             taskService.createTask(taskDto);
@@ -59,6 +61,16 @@ public class TaskController {
         }catch (Exception e){
             return ResponseEntity.status(400).build();
         }
+    }
+
+    @PostMapping("addPhoto/{idProduct}")
+    public ResponseEntity addPhotoToTask(
+            @RequestParam("file") MultipartFile file,
+            @PathVariable(name = "idProduct") Long idProguct
+    ) throws IOException {
+        System.out.println(file);
+        taskService.addImageToProduct(idProguct, file);
+        return ResponseEntity.status(200).build();
     }
 
 }

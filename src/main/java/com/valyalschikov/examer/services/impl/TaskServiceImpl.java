@@ -1,5 +1,6 @@
 package com.valyalschikov.examer.services.impl;
 
+import com.valyalschikov.examer.Models.Image;
 import com.valyalschikov.examer.Models.Task;
 import com.valyalschikov.examer.dto.ExamDto;
 import com.valyalschikov.examer.dto.TaskDto;
@@ -10,6 +11,9 @@ import com.valyalschikov.examer.services.ExamService;
 import com.valyalschikov.examer.services.TaskService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -85,6 +89,7 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public void deleteAllByExamId(String token) {
         ExamDto examDto;
+
         try {
             examDto = examService.getExamByToken(token);
         }catch (Exception e){
@@ -92,5 +97,29 @@ public class TaskServiceImpl implements TaskService {
         }
         List<Task> tasks = taskRepository.findAllByExamId(examDto.getId());
         taskRepository.deleteAll(tasks);
+    }
+    @Override
+    public void addImageToProduct(Long idProduct, MultipartFile file) throws IOException {
+        Task task = taskRepository.findById(idProduct).orElseThrow(
+                () -> new NotFoundException()
+        );
+
+        Image image;
+        if (file.getSize() != 0) {
+            image = toImageEntity(file);
+            image.setPreviewImage(true);
+            task.addImageToProduct(image);
+        }
+        taskRepository.save(task);
+    }
+
+    private Image toImageEntity(MultipartFile file) throws  IOException {
+        Image image = new Image();
+        image.setName(file.getName());
+        image.setOriginalFileName(file.getOriginalFilename());
+        image.setContentType(file.getContentType());
+        image.setSize(file.getSize());
+        image.setBytes(file.getBytes());
+        return image;
     }
 }

@@ -14,6 +14,8 @@ public class TaskMapper {
                 task.getQuestion(),
                 task.getDescription(),
                 task.getAnswer(),
-                task.getDate());
+                task.getDate(),
+                task.getImages()
+        );
     }
 }

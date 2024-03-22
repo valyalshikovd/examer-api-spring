@@ -18,11 +18,11 @@ public class ExamController {
     TaskService taskService;
 
     @PostMapping
-    public ResponseEntity<String> createExam(@RequestBody RequestExamDto examDto){
-        if(examDto == null || examDto.getName() == null )
-            return ResponseEntity.status(400).build();
+    public ResponseEntity<String> createExam(@RequestBody  String name){
+//        if(examDto == null || examDto.getName() == null )
+//            return ResponseEntity.status(400).build();
         try {
-            ExamDto createdExam = examService.createExam(examDto.getName());
+            ExamDto createdExam = examService.createExam(name);
             return ResponseEntity.ok(createdExam.getToken());
         }catch (Exception e){
             return ResponseEntity.status(400).build();

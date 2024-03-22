@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-@Builder
 public class RequestExamDto {
     private String name;
+    private String something;
 }
