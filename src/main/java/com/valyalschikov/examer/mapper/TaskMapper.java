@@ -10,14 +10,7 @@ public class TaskMapper {
 
 
     public static TaskDto mapToDto(Task task){
-        List<Long> imagesId;
-        System.out.println(task.getImages());
-        try{
-            imagesId = task.getImages().stream().map( (image) -> image.getId()).toList();
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-            imagesId = new ArrayList<>();
-        }
+
 
 
         return new TaskDto(task.getId(),
@@ -26,8 +19,7 @@ public class TaskMapper {
                 task.getQuestion(),
                 task.getDescription(),
                 task.getAnswer(),
-                task.getDate(),
-                imagesId
+                task.getDate()
         );
     }
 }

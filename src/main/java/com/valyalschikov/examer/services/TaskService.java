@@ -18,6 +18,5 @@ public interface TaskService {
     TaskDto delete(Long id);
 
     void deleteAllByExamId(String token);
-    public void addImageToProduct(Long idProduct, MultipartFile file) throws IOException;
 
 }

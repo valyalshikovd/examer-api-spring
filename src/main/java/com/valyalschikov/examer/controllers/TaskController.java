@@ -65,13 +65,4 @@ public class TaskController {
         }
     }
 
-    @PostMapping("addPhoto/{idProduct}")
-    public ResponseEntity addPhotoToTask(
-            @RequestParam("file") MultipartFile file,
-            @PathVariable(name = "idProduct") Long idProguct
-    ) throws IOException {
-        taskService.addImageToProduct(idProguct, file);
-        return ResponseEntity.status(200).build();
-    }
-
 }

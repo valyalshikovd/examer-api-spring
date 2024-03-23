@@ -8,6 +8,7 @@ import com.valyalschikov.examer.exceptions.NotFoundException;
 import com.valyalschikov.examer.mapper.TaskMapper;
 import com.valyalschikov.examer.repository.TaskRepository;
 import com.valyalschikov.examer.services.ExamService;
+import com.valyalschikov.examer.services.ImageService;
 import com.valyalschikov.examer.services.TaskService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,7 @@ import java.util.List;
 @AllArgsConstructor
 public class TaskServiceImpl implements TaskService {
 
+    private ImageService imageService;
     private ExamService examService;
     private TaskRepository taskRepository;
     @Override
@@ -50,7 +52,6 @@ public class TaskServiceImpl implements TaskService {
 
         ExamDto examDto = examService.getExamByToken(token);
         List<Task> tasks = taskRepository.findAllByExamId(examDto.getId());
-        System.out.println(tasks.get(0).getImages());
         return  tasks.stream().map( TaskMapper::mapToDto).toList();
 
     }
@@ -83,7 +84,7 @@ public class TaskServiceImpl implements TaskService {
         Task task = taskRepository.findById(id).orElseThrow(
                 () -> new NotFoundException()
         );
-
+        imageService.deleteAllImagesByTaskId(id);
         taskRepository.delete(task);
         return TaskMapper.mapToDto(task);
     }
@@ -100,29 +101,5 @@ public class TaskServiceImpl implements TaskService {
         List<Task> tasks = taskRepository.findAllByExamId(examDto.getId());
         taskRepository.deleteAll(tasks);
     }
-    @Override
-    public void addImageToProduct(Long idProduct, MultipartFile file) throws IOException {
-        Task task = taskRepository.findById(idProduct).orElseThrow(
-                () -> new NotFoundException()
-        );
 
-        Image image;
-        if (file.getSize() != 0) {
-            image = toImageEntity(file);
-            image.setPreviewImage(true);
-            task.addImageToProduct(image);
-        }
-        System.out.println(task.getImages());
-        taskRepository.save(task);
-    }
-
-    private Image toImageEntity(MultipartFile file) throws  IOException {
-        Image image = new Image();
-        image.setName(file.getName());
-        image.setOriginalFileName(file.getOriginalFilename());
-        image.setContentType(file.getContentType());
-        image.setSize(file.getSize());
-        image.setBytes(file.getBytes());
-        return image;
-    }
 }

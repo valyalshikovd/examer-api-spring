@@ -35,14 +35,4 @@ public class Task {
     @Column(name = "date", nullable = false)
     private LocalDate date;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,
-            mappedBy = "task")
-    private List<Image> images = new ArrayList<>();
-
-    public void addImageToProduct(Image image) {
-        image.setTask(this);
-        images.add(image);
-
-    }
-
 }

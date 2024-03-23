@@ -27,6 +27,7 @@ public class TaskDto {
     private String description;
     private String answer;
     private LocalDate date;
-    private List<Long> imageList = new ArrayList<>();
+
+
 }
 
