@@ -8,5 +8,6 @@ import java.util.List;
 public interface ImageService {
     public void addImageToProduct(Long idProduct, MultipartFile file) throws IOException;
     public void deleteAllImagesByTaskId(Long taskId);
-    public List<Long> getIndicesImagesByTasId(Long taskId);
+    public List<Long> getIndicesImagesByTaskId(Long taskId);
+    public void deleteByImageId(Long imageId);
 }

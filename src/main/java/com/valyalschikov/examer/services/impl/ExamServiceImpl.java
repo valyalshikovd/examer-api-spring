@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import java.security.SecureRandom;
 import java.time.LocalDate;
 import java.util.Base64;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Service
@@ -66,15 +68,21 @@ public class ExamServiceImpl implements ExamService {
     }
 
     private String createToken() {
-        SecureRandom random = new SecureRandom();
-        byte[] token = new byte[24];
-        random.nextBytes(token);
-        String string = Base64.getEncoder().encodeToString(token);
+        final String ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
+        final SecureRandom RANDOM = new SecureRandom();
+        StringBuilder token = new StringBuilder(24);
+        Set<String> existingTokens = new HashSet<>();
 
-        if(examRepository.findByToken(string) != null){
-            return createToken();
-        };
+        while (true) {
+            for (int i = 0; i < 24; i++) {
+                token.append(ALPHABET.charAt(RANDOM.nextInt(ALPHABET.length())));
+            }
+            String stringToken = token.toString();
 
-        return string;
+            if (!existingTokens.contains(stringToken) && examRepository.findByToken(stringToken) == null) {
+                return stringToken;
+            }
+            token.setLength(0);
+        }
     }
 }

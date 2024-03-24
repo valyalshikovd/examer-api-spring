@@ -49,8 +49,16 @@ public class ImageServiceImpl implements ImageService {
         imageRepository.deleteAllByTaskId(taskId);
     }
 
+    @Override
     @Transactional
-    public List<Long> getIndicesImagesByTasId(Long taskId){
+    public List<Long> getIndicesImagesByTaskId(Long taskId){
         return imageRepository.findAllByTaskId(taskId).stream().map((image) -> image.getId()).toList();
     }
+
+    @Override
+    public void deleteByImageId(Long imageId) {
+        imageRepository.deleteById(imageId);
+    }
+
+
 }

@@ -4,7 +4,6 @@ import com.valyalschikov.examer.Models.Image;
 import com.valyalschikov.examer.repository.ImageRepository;
 import com.valyalschikov.examer.services.ImageService;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,10 +17,12 @@ import java.util.List;
 @RestController
 
 @AllArgsConstructor
+@RequestMapping("api/v1/images")
+@CrossOrigin(origins = "*")
 public class ImageController {
     private final ImageRepository imageRepository;
     private ImageService imageService;
-    @GetMapping("/images/{id}")
+    @GetMapping("/{id}")
     private ResponseEntity<?> getImageById(@PathVariable Long id) {
 
         Image image = imageRepository.findById(id).orElse(null);
@@ -40,10 +41,14 @@ public class ImageController {
         imageService.addImageToProduct(idProguct, file);
         return ResponseEntity.status(200).build();
     }
-    @GetMapping("/imagesIndicies/{id}")
+    @GetMapping("/indicies/{id}")
     private ResponseEntity<List<Long>> getImageIndiciesByTaskId(@PathVariable Long id) {
+        return ResponseEntity.ok(imageService.getIndicesImagesByTaskId(id));
+    }
 
-        return ResponseEntity.ok(imageService.getIndicesImagesByTasId(id));
-
+    @DeleteMapping("/{id}")
+    private ResponseEntity deleteImageById(@PathVariable Long id) {
+        deleteImageById(id);
+        return ResponseEntity.status(200).build();
     }
 }
