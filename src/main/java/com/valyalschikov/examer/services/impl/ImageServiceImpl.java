@@ -8,6 +8,7 @@ import com.valyalschikov.examer.repository.TaskRepository;
 import com.valyalschikov.examer.services.ImageService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -48,6 +49,7 @@ public class ImageServiceImpl implements ImageService {
         imageRepository.deleteAllByTaskId(taskId);
     }
 
+    @Transactional
     public List<Long> getIndicesImagesByTasId(Long taskId){
         return imageRepository.findAllByTaskId(taskId).stream().map((image) -> image.getId()).toList();
     }
