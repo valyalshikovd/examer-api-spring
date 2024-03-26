@@ -10,7 +10,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.security.SecureRandom;
 import java.time.LocalDate;
-import java.util.Base64;
 import java.util.HashSet;
 import java.util.Set;
 

@@ -1,6 +1,5 @@
 package com.valyalschikov.examer.services.impl;
 
-import com.valyalschikov.examer.Models.Image;
 import com.valyalschikov.examer.Models.Task;
 import com.valyalschikov.examer.dto.ExamDto;
 import com.valyalschikov.examer.dto.TaskDto;
@@ -12,9 +11,6 @@ import com.valyalschikov.examer.services.ImageService;
 import com.valyalschikov.examer.services.TaskService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 

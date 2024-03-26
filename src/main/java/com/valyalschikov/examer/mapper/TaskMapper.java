@@ -3,9 +3,6 @@ package com.valyalschikov.examer.mapper;
 import com.valyalschikov.examer.Models.Task;
 import com.valyalschikov.examer.dto.TaskDto;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class TaskMapper {
 
 

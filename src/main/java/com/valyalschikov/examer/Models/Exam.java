@@ -4,10 +4,7 @@ package com.valyalschikov.examer.Models;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
-
-
 import java.time.LocalDate;
-import java.util.Collection;
 
 @Entity
 @Table(name="exams")

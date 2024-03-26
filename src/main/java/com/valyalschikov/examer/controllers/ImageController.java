@@ -36,9 +36,10 @@ public class ImageController {
     @PostMapping("addPhoto/{idProduct}")
     public ResponseEntity addPhotoToTask(
             @RequestParam("file") MultipartFile file,
-            @PathVariable(name = "idProduct") Long idProguct
+            @PathVariable(name = "idProduct") Long idProduct
     ) throws IOException {
-        imageService.addImageToProduct(idProguct, file);
+        System.out.println(file);
+        imageService.addImageToProduct(idProduct, file);
         return ResponseEntity.status(200).build();
     }
     @GetMapping("/indicies/{id}")

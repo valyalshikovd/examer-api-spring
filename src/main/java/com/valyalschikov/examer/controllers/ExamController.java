@@ -2,8 +2,6 @@ package com.valyalschikov.examer.controllers;
 
 
 import com.valyalschikov.examer.dto.ExamDto;
-import com.valyalschikov.examer.dto.RequestExamDto;
-import com.valyalschikov.examer.mapper.ExamMapper;
 import com.valyalschikov.examer.services.ExamService;
 import com.valyalschikov.examer.services.TaskService;
 import lombok.AllArgsConstructor;
