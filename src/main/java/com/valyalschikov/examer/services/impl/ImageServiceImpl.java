@@ -45,6 +45,7 @@ public class ImageServiceImpl implements ImageService {
         return image;
     }
     @Override
+    @Transactional
     public void deleteAllImagesByTaskId(Long taskId){
         imageRepository.deleteAllByTaskId(taskId);
     }
@@ -56,6 +57,7 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
+
     public void deleteByImageId(Long imageId) {
         imageRepository.deleteById(imageId);
     }

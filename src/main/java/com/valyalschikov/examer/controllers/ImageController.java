@@ -49,7 +49,7 @@ public class ImageController {
 
     @DeleteMapping("/{id}")
     private ResponseEntity deleteImageById(@PathVariable Long id) {
-        deleteImageById(id);
+        imageService.deleteByImageId(id);
         return ResponseEntity.status(200).build();
     }
 }

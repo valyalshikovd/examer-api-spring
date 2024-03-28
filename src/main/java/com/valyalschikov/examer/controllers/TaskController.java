@@ -31,7 +31,7 @@ public class TaskController {
         return ResponseEntity.ok(taskDto);
     }
 
-    @PatchMapping("/{id}")
+    @PostMapping("/edit/{id}")
     public ResponseEntity<TaskDto> update(
             @RequestBody TaskDto taskDto,
             @PathVariable("id") Long id
@@ -39,6 +39,7 @@ public class TaskController {
         try {
             return ResponseEntity.ok(taskService.update(taskDto, id));
         }catch (Exception e){
+            System.out.println(e.getMessage());
             return ResponseEntity.status(404).build();
         }
     }
@@ -57,11 +58,12 @@ public class TaskController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity delete(Long id){
+    public ResponseEntity delete(@PathVariable("id") Long id){
         try {
             taskService.delete(id);
             return ResponseEntity.status(200).build();
         }catch (Exception e){
+            System.out.println(e.getMessage());
             return ResponseEntity.status(400).build();
         }
     }
