@@ -26,8 +26,12 @@ public class ImageController {
     private ResponseEntity<?> getImageById(@PathVariable Long id) {
 
         Image image = imageRepository.findById(id).orElse(null);
+        String s = image.getOriginalFileName();
+        if(s == null){
+            s = "image" + id ;
+        }
         return ResponseEntity.ok()
-                .header("fileName", image.getOriginalFileName())
+                .header("fileName", s)
                 .contentType(MediaType.valueOf(image.getContentType()))
                 .contentLength(image.getSize())
                 .body(new InputStreamResource(new ByteArrayInputStream(image.getBytes())));
@@ -38,9 +42,14 @@ public class ImageController {
             @RequestParam("file") MultipartFile file,
             @PathVariable(name = "idProduct") Long idProduct
     ) throws IOException {
-        System.out.println(file);
-        imageService.addImageToProduct(idProduct, file);
-        return ResponseEntity.status(200).build();
+        try {
+            imageService.addImageToProduct(idProduct, file);
+            return ResponseEntity.status(200).build();
+        }catch (Exception e){
+            System.out.println("Добавление фотографии к таску \n" + e.getMessage());
+            return ResponseEntity.status(500).build();
+        }
+
     }
     @GetMapping("/indicies/{id}")
     private ResponseEntity<List<Long>> getImageIndiciesByTaskId(@PathVariable Long id) {

@@ -25,6 +25,7 @@ public class TaskController {
         try {
             taskDto = taskService.createTask(taskDto);
         }catch (Exception e){
+            System.out.println("Создание таска по id" +e.getMessage());
             return ResponseEntity.status(400).build();
         }
 
@@ -39,7 +40,7 @@ public class TaskController {
         try {
             return ResponseEntity.ok(taskService.update(taskDto, id));
         }catch (Exception e){
-            System.out.println(e.getMessage());
+            System.out.println("Редактирование таска по id" +e.getMessage());
             return ResponseEntity.status(404).build();
         }
     }
@@ -52,7 +53,7 @@ public class TaskController {
             List<TaskDto> res = taskService.getByExamToken(token);
             return ResponseEntity.ok(res);
         }catch (Exception e){
-            System.out.println(e.getMessage());
+            System.out.println("Получение таска по токену" + e.getMessage());
             return ResponseEntity.status(400).build();
         }
     }
