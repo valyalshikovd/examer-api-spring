@@ -24,9 +24,9 @@ public class Task {
     private int num;
     @Column(name = "question", nullable = false)
     private String question;
-    @Column(name = "description", nullable = false)
+    @Column(name = "description", nullable = false, columnDefinition = "TEXT")
     private String description;
-    @Column(name = "answer")
+    @Column(name = "answer", columnDefinition = "TEXT")
     private String answer;
     @CreatedDate
     @Column(name = "date", nullable = false)
